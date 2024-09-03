@@ -20,5 +20,8 @@ body {
   background-color: #57cc99;
 }
 
-/* div #snake {
-} */
+.snakeBody {
+  width: 15px;
+  height: 15px;
+  background-color: #22577a;
+}

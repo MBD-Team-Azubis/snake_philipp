@@ -11,3 +11,8 @@ for (let i = 0; i < 225; i++) {
   }
   playground.appendChild(div);
 }
+
+const snake = document.createElement("div");
+
+snake.setAttribute("value", "X");
+snake.setAttribute("class", "snakeBody");
