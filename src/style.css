@@ -1,0 +1,24 @@
+body {
+  background-color: #c7f9cc;
+  display: flex;
+  justify-content: center;
+}
+
+#playground {
+  background-color: hwb(134 37% 32%);
+  width: 800px;
+  height: 800px;
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+}
+
+#playground > div:nth-child(even) {
+  background-color: #80ed99;
+}
+
+#playground > div:nth-child(odd) {
+  background-color: #57cc99;
+}
+
+/* div #snake {
+} */
