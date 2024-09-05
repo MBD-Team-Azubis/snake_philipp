@@ -33,43 +33,43 @@ function newSnakePosition(inputCheck: string) {
   for (let k = 0; k < currentSnake.length; k++) {
     currentSnake[k].classList.remove("snake");
     if (inputCheck === "ArrowUp") {
-      let storage = playerStart.split("div");
-      let nextStorage = storage[1];
-      let anotherStorage = parseInt(nextStorage);
-      let finalStorage = anotherStorage - 15;
-      let overwritten = finalStorage.toString();
-      let nextStep = "div" + overwritten;
-      let result = <HTMLDivElement>document.getElementById(nextStep);
+      const storage = playerStart.split("div");
+      const nextStorage = storage[1];
+      const anotherStorage = parseInt(nextStorage);
+      const finalStorage = anotherStorage - 15;
+      const overwritten = finalStorage.toString();
+      const nextStep = "div" + overwritten;
+      const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
     }
     if (inputCheck === "ArrowDown") {
-      let storage = playerStart.split("div");
-      let nextStorage = storage[1];
-      let anotherStorage = parseInt(nextStorage);
-      let finalStorage = anotherStorage + 15;
-      let overwritten = finalStorage.toString();
-      let nextStep = "div" + overwritten;
-      let result = <HTMLDivElement>document.getElementById(nextStep);
+      const storage = playerStart.split("div");
+      const nextStorage = storage[1];
+      const anotherStorage = parseInt(nextStorage);
+      const finalStorage = anotherStorage + 15;
+      const overwritten = finalStorage.toString();
+      const nextStep = "div" + overwritten;
+      const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
     }
     if (inputCheck === "ArrowRight") {
-      let storage = playerStart.split("div");
-      let nextStorage = storage[1];
-      let anotherStorage = parseInt(nextStorage);
-      let finalStorage = anotherStorage + 1;
-      let overwritten = finalStorage.toString();
-      let nextStep = "div" + overwritten;
-      let result = <HTMLDivElement>document.getElementById(nextStep);
+      const storage = playerStart.split("div");
+      const nextStorage = storage[1];
+      const anotherStorage = parseInt(nextStorage);
+      const finalStorage = anotherStorage + 1;
+      const overwritten = finalStorage.toString();
+      const nextStep = "div" + overwritten;
+      const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
     }
     if (inputCheck === "ArrowLeft") {
-      let storage = playerStart.split("div");
-      let nextStorage = storage[1];
-      let anotherStorage = parseInt(nextStorage);
-      let finalStorage = anotherStorage - 1;
-      let overwritten = finalStorage.toString();
-      let nextStep = "div" + overwritten;
-      let result = <HTMLDivElement>document.getElementById(nextStep);
+      const storage = playerStart.split("div");
+      const nextStorage = storage[1];
+      const anotherStorage = parseInt(nextStorage);
+      const finalStorage = anotherStorage - 1;
+      const overwritten = finalStorage.toString();
+      const nextStep = "div" + overwritten;
+      const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
     }
   }
