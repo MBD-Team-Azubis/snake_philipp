@@ -12,14 +12,14 @@ body {
   grid-template-columns: repeat(15, 1fr);
 }
 
-#playground > div:nth-child(even) {
+#playground > *:nth-child(even) {
   background-color: #80ed99;
 }
 
-#playground > div:nth-child(odd) {
+#playground > *:nth-child(odd) {
   background-color: #57cc99;
 }
 
-#playground > div:nth-child(113) {
+#playground .snake {
   background-color: #22577a;
 }
