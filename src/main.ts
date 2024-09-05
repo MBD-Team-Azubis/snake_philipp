@@ -2,17 +2,29 @@ import "./style.css";
 
 const playground = <HTMLDivElement>document.getElementById("playground");
 
-for (let i = 0; i < 225; i++) {
+let axis = {
+  x: 0,
+  y: 0,
+};
+
+for (let i = 1; i <= 225; i++) {
   const div = document.createElement("div");
-  if (i % 2 === 0) {
-    div.setAttribute("class", "field1");
-  } else {
-    div.setAttribute("class", "field2");
-  }
+  div.id = `div${i.toString()}`;
   playground.appendChild(div);
 }
 
-const snake = document.createElement("div");
+window.addEventListener("keydown", (event) => {
+  inputCheck(event.key);
+});
 
-snake.setAttribute("value", "X");
-snake.setAttribute("class", "snakeBody");
+function inputCheck(input: string) {
+  if (input === "ArrowUp") {
+    // moveSnake(input);
+  } else if (input === "ArrowDown") {
+    // moveSnake(input);
+  } else if (input === "ArrowRight") {
+    // moveSnake(input);
+  } else if (input === "ArrowLeft") {
+    // moveSnake(input);
+  }
+}

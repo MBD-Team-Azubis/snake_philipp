@@ -20,8 +20,6 @@ body {
   background-color: #57cc99;
 }
 
-.snakeBody {
-  width: 15px;
-  height: 15px;
+#playground > div:nth-child(113) {
   background-color: #22577a;
 }
