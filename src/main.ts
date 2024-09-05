@@ -33,44 +33,72 @@ function newSnakePosition(inputCheck: string) {
   for (let k = 0; k < currentSnake.length; k++) {
     currentSnake[k].classList.remove("snake");
     if (inputCheck === "ArrowUp") {
-      const storage = playerStart.split("div");
-      const nextStorage = storage[1];
-      const anotherStorage = parseInt(nextStorage);
-      const finalStorage = anotherStorage - 15;
-      const overwritten = finalStorage.toString();
-      const nextStep = "div" + overwritten;
+      let storage = playerStart.split("div");
+      let nextStorage = storage[1];
+      let anotherStorage = parseInt(nextStorage);
+      let finalStorage = anotherStorage - 15;
+      let overwritten = finalStorage.toString();
+      let nextStep = "div" + overwritten;
       const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
+      storage = [""];
+      nextStorage = "";
+      anotherStorage = 0;
+      finalStorage = 0;
+      overwritten = "";
+      playerStart = nextStep;
+      nextStep = "";
     }
     if (inputCheck === "ArrowDown") {
-      const storage = playerStart.split("div");
-      const nextStorage = storage[1];
-      const anotherStorage = parseInt(nextStorage);
-      const finalStorage = anotherStorage + 15;
-      const overwritten = finalStorage.toString();
-      const nextStep = "div" + overwritten;
+      let storage = playerStart.split("div");
+      let nextStorage = storage[1];
+      let anotherStorage = parseInt(nextStorage);
+      let finalStorage = anotherStorage + 15;
+      let overwritten = finalStorage.toString();
+      let nextStep = "div" + overwritten;
       const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
+      storage = [""];
+      nextStorage = "";
+      anotherStorage = 0;
+      finalStorage = 0;
+      overwritten = "";
+      playerStart = nextStep;
+      nextStep = "";
     }
     if (inputCheck === "ArrowRight") {
-      const storage = playerStart.split("div");
-      const nextStorage = storage[1];
-      const anotherStorage = parseInt(nextStorage);
-      const finalStorage = anotherStorage + 1;
-      const overwritten = finalStorage.toString();
-      const nextStep = "div" + overwritten;
+      let storage = playerStart.split("div");
+      let nextStorage = storage[1];
+      let anotherStorage = parseInt(nextStorage);
+      let finalStorage = anotherStorage + 1;
+      let overwritten = finalStorage.toString();
+      let nextStep = "div" + overwritten;
       const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
+      storage = [""];
+      nextStorage = "";
+      anotherStorage = 0;
+      finalStorage = 0;
+      overwritten = "";
+      playerStart = nextStep;
+      nextStep = "";
     }
     if (inputCheck === "ArrowLeft") {
-      const storage = playerStart.split("div");
-      const nextStorage = storage[1];
-      const anotherStorage = parseInt(nextStorage);
-      const finalStorage = anotherStorage - 1;
-      const overwritten = finalStorage.toString();
-      const nextStep = "div" + overwritten;
+      let storage = playerStart.split("div");
+      let nextStorage = storage[1];
+      let anotherStorage = parseInt(nextStorage);
+      let finalStorage = anotherStorage - 1;
+      let overwritten = finalStorage.toString();
+      let nextStep = "div" + overwritten;
       const result = <HTMLDivElement>document.getElementById(nextStep);
       result.classList.add("snake");
+      storage = [""];
+      nextStorage = "";
+      anotherStorage = 0;
+      finalStorage = 0;
+      overwritten = "";
+      playerStart = nextStep;
+      nextStep = "";
     }
   }
 }
@@ -79,24 +107,17 @@ function move(input: string) {
   if (input === "ArrowUp") {
     checkIfBorderCrash();
     position.y -= 1;
-    newSnakePosition(input);
-    console.log(position);
   } else if (input === "ArrowDown") {
     checkIfBorderCrash();
     position.y += 1;
-    newSnakePosition(input);
-    console.log(position);
   } else if (input === "ArrowRight") {
     checkIfBorderCrash();
     position.x += 1;
-    newSnakePosition(input);
-    console.log(position);
   } else if (input === "ArrowLeft") {
     checkIfBorderCrash();
     position.x -= 1;
-    newSnakePosition(input);
-    console.log(position);
   }
+  newSnakePosition(input);
 }
 
 function checkIfBorderCrash() {
