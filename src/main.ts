@@ -7,14 +7,21 @@ const position = {
   y: 0,
 };
 
-let playerStart = <HTMLDivElement>document.getElementById("div113");
+// let playerStart = <HTMLDivElement>document.getElementById("div113");
 
-playerStart = position;
+// playerStart = position;
 
 for (let i = 1; i <= 225; i++) {
-  const div = document.createElement("div");
-  div.id = `div${i.toString()}`;
-  playground.appendChild(div);
+  if (i === 113) {
+    const div = document.createElement("div");
+    div.id = `div${i.toString()}`;
+    div.className = "snake";
+    playground.appendChild(div);
+  } else {
+    const div = document.createElement("div");
+    div.id = `div${i.toString()}`;
+    playground.appendChild(div);
+  }
 }
 
 window.addEventListener("keydown", (event) => {
