@@ -23,3 +23,7 @@ body {
 #playground .snake {
   background-color: #22577a;
 }
+
+#playground .food {
+  background-color: red;
+}

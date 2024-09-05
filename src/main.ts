@@ -23,6 +23,8 @@ for (let i = 1; i <= 225; i++) {
   }
 }
 
+foodSpawn();
+
 window.addEventListener("keydown", (event) => {
   move(event.key);
 });
@@ -124,4 +126,14 @@ function checkIfBorderCrash() {
   if (position.x > 6 || position.x < -6 || position.y > 6 || position.y < -6) {
     console.log("You loose");
   }
+}
+
+function foodSpawn() {
+  const squaryApple = Math.round(Math.random() * 225);
+  const foodId = "div" + squaryApple.toString();
+  if (foodId === playerStart) {
+    foodSpawn();
+  }
+  const change = <HTMLDivElement>document.getElementById(foodId);
+  change.classList.add("food");
 }
