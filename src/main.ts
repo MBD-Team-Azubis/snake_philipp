@@ -2,7 +2,7 @@ import "./style.css";
 
 const playground = <HTMLDivElement>document.getElementById("playground");
 
-let liveSnakePosition = {
+const liveSnakePosition = {
   x: 8,
   y: 8,
 };
@@ -23,7 +23,7 @@ for (let i = 1; i <= 225; i++) {
   }
 }
 
-foodSpawn();
+checkIfSnakeOnFood();
 
 window.addEventListener("keydown", (event) => {
   move(event.key);
@@ -117,7 +117,7 @@ function move(input: string) {
     liveSnakePosition.x -= 1;
   }
   newSnakePosition(input);
-  checkIfSnakeOnFood;
+  checkIfSnakeOnFood();
   console.log(liveSnakePosition);
 }
 
@@ -132,20 +132,45 @@ function checkIfBorderCrash() {
   }
 }
 
-function foodSpawn() {
-  const squaryApple = Math.round(Math.random() * 225);
-  const foodId = "div" + squaryApple.toString();
-  if (foodId === playerStart) {
-    foodSpawn();
-  }
-  const change = <HTMLDivElement>document.getElementById(foodId);
-  change.classList.add("food");
-}
+function addFood() {}
 
 function checkIfSnakeOnFood() {
-  let foodLocation = document.getElementsByClassName("food");
-  let snakeLocation = document.getElementsByClassName("snake");
-  if (foodLocation === snakeLocation) {
-    console.log("hello");
+  const randomLocationForX = Math.round(Math.random() * (15 - 1) + 1);
+  const randomLocationForY = Math.round(Math.random() * (15 - 1) + 1);
+  const foodPosition = {
+    foodX: randomLocationForX,
+    foodY: randomLocationForY,
+  };
+  console.log(foodPosition);
+  if (randomLocationForY === 1) {
+    const repairAppleCoordinates = randomLocationForY;
+    const squaryApple = randomLocationForX + repairAppleCoordinates;
+    const foodId = "div" + squaryApple.toString();
+    const change = <HTMLDivElement>document.getElementById(foodId);
+    if (foodId === playerStart) {
+      change.classList.remove("food");
+      checkIfSnakeOnFood();
+    } else if (
+      foodPosition.foodX === liveSnakePosition.x &&
+      foodPosition.foodY === liveSnakePosition.y
+    ) {
+      change.classList.remove("food");
+      checkIfSnakeOnFood();
+    }
+  } else {
+    const repairAppleCoordinates = randomLocationForY * 15;
+    const squaryApple = randomLocationForX + repairAppleCoordinates;
+    const foodId = "div" + squaryApple.toString();
+    const change = <HTMLDivElement>document.getElementById(foodId);
+    if (foodId === playerStart) {
+      change.classList.remove("food");
+      checkIfSnakeOnFood();
+    } else if (
+      foodPosition.foodX === liveSnakePosition.x &&
+      foodPosition.foodY === liveSnakePosition.y
+    ) {
+      change.classList.remove("food");
+      checkIfSnakeOnFood();
+    }
   }
 }
