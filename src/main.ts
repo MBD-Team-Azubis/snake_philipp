@@ -2,9 +2,9 @@ import "./style.css";
 
 const playground = <HTMLDivElement>document.getElementById("playground");
 
-const position = {
-  x: 0,
-  y: 0,
+let liveSnakePosition = {
+  x: 8,
+  y: 8,
 };
 
 let playerStart = "";
@@ -103,27 +103,31 @@ function newSnakePosition(inputCheck: string) {
       nextStep = "";
     }
   }
+  checkIfBorderCrash();
 }
 
 function move(input: string) {
   if (input === "ArrowUp") {
-    checkIfBorderCrash();
-    position.y -= 1;
+    liveSnakePosition.y -= 1;
   } else if (input === "ArrowDown") {
-    checkIfBorderCrash();
-    position.y += 1;
+    liveSnakePosition.y += 1;
   } else if (input === "ArrowRight") {
-    checkIfBorderCrash();
-    position.x += 1;
+    liveSnakePosition.x += 1;
   } else if (input === "ArrowLeft") {
-    checkIfBorderCrash();
-    position.x -= 1;
+    liveSnakePosition.x -= 1;
   }
   newSnakePosition(input);
+  checkIfSnakeOnFood;
+  console.log(liveSnakePosition);
 }
 
 function checkIfBorderCrash() {
-  if (position.x > 6 || position.x < -6 || position.y > 6 || position.y < -6) {
+  if (
+    liveSnakePosition.x === 16 ||
+    liveSnakePosition.x === 0 ||
+    liveSnakePosition.y === 16 ||
+    liveSnakePosition.y === 0
+  ) {
     console.log("You loose");
   }
 }
@@ -136,4 +140,12 @@ function foodSpawn() {
   }
   const change = <HTMLDivElement>document.getElementById(foodId);
   change.classList.add("food");
+}
+
+function checkIfSnakeOnFood() {
+  let foodLocation = document.getElementsByClassName("food");
+  let snakeLocation = document.getElementsByClassName("snake");
+  if (foodLocation === snakeLocation) {
+    console.log("hello");
+  }
 }
