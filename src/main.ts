@@ -132,45 +132,46 @@ function checkIfBorderCrash() {
   }
 }
 
-function addFood() {}
-
 function checkIfSnakeOnFood() {
   const randomLocationForX = Math.round(Math.random() * (15 - 1) + 1);
   const randomLocationForY = Math.round(Math.random() * (15 - 1) + 1);
   const foodPosition = {
-    foodX: randomLocationForX,
-    foodY: randomLocationForY,
+    foodX: 0,
+    foodY: 0,
   };
-  console.log(foodPosition);
-  if (randomLocationForY === 1) {
-    const repairAppleCoordinates = randomLocationForY;
-    const squaryApple = randomLocationForX + repairAppleCoordinates;
-    const foodId = "div" + squaryApple.toString();
-    const change = <HTMLDivElement>document.getElementById(foodId);
-    if (foodId === playerStart) {
-      change.classList.remove("food");
-      checkIfSnakeOnFood();
-    } else if (
-      foodPosition.foodX === liveSnakePosition.x &&
-      foodPosition.foodY === liveSnakePosition.y
-    ) {
-      change.classList.remove("food");
-      checkIfSnakeOnFood();
-    }
+  if (foodPosition.foodX === 0 && foodPosition.foodY === 0) {
+    foodPosition.foodX = randomLocationForX;
+    foodPosition.foodY = randomLocationForY;
   } else {
-    const repairAppleCoordinates = randomLocationForY * 15;
-    const squaryApple = randomLocationForX + repairAppleCoordinates;
-    const foodId = "div" + squaryApple.toString();
-    const change = <HTMLDivElement>document.getElementById(foodId);
-    if (foodId === playerStart) {
-      change.classList.remove("food");
+    if (randomLocationForY === 1) {
+      const repairAppleCoordinates = randomLocationForY;
+      const squaryApple = randomLocationForX + repairAppleCoordinates;
+      const foodId = "div" + squaryApple.toString();
+      const change = <HTMLDivElement>document.getElementById(foodId);
+      if (foodId === playerStart) {
+        change.classList.remove("food");
+        checkIfSnakeOnFood();
+      } else if (
+        foodPosition.foodX === liveSnakePosition.x &&
+        foodPosition.foodY === liveSnakePosition.y
+      ) {
+        change.classList.remove("food");
+        checkIfSnakeOnFood();
+      }
       checkIfSnakeOnFood();
-    } else if (
-      foodPosition.foodX === liveSnakePosition.x &&
-      foodPosition.foodY === liveSnakePosition.y
-    ) {
-      change.classList.remove("food");
-      checkIfSnakeOnFood();
+    } else {
+      const repairAppleCoordinates = randomLocationForY * 15;
+      const squaryApple = randomLocationForX + repairAppleCoordinates;
+      const foodId = "div" + squaryApple.toString();
+      const change = <HTMLDivElement>document.getElementById(foodId);
+      if (foodId === playerStart) {
+        change.classList.remove("food");
+      } else if (
+        foodPosition.foodX === liveSnakePosition.x &&
+        foodPosition.foodY === liveSnakePosition.y
+      ) {
+        change.classList.remove("food");
+      }
     }
   }
 }
