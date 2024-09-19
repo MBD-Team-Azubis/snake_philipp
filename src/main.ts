@@ -9,6 +9,7 @@ const snakeTracker = {
 };
 
 function renderingPlayfield() {
+  playground.innerHTML = "";
   for (let i = 1; i <= 225; i++) {
     if (i === liveSnakePosition) {
       const div = document.createElement("div");
@@ -18,13 +19,15 @@ function renderingPlayfield() {
     } else {
       const div = document.createElement("div");
       div.id = `div${i.toString()}`;
+      div.className = "playfield";
       playground.appendChild(div);
     }
   }
-  window.addEventListener("keydown", (event) => {
-    move(event.key);
-  });
 }
+
+window.addEventListener("keydown", (event) => {
+  move(event.key);
+});
 
 renderingPlayfield();
 newFoodLocation();
@@ -47,7 +50,6 @@ function move(input: string) {
     snakeTracker.x -= 1;
     renderingPlayfield();
   }
-  // newSnakePosition(input);
   console.log(liveSnakePosition);
   console.log(snakeTracker);
 }
@@ -88,28 +90,3 @@ function newFoodLocation() {
   console.log(checkList);
   console.log(foodPosition);
 }
-
-// if (
-//   liveSnakePosition.x === foodPosition.foodX &&
-//   liveSnakePosition.y === foodPosition.foodY
-// ) {
-//   if (randomLocationForY === 1) {
-//     const repairAppleCoordinates = randomLocationForY;
-//     const squaryApple = randomLocationForX + repairAppleCoordinates;
-//     const foodId = "div" + squaryApple.toString();
-//     const change = <HTMLDivElement>document.getElementById(foodId);
-//     change.classList.remove("food");
-//     foodPosition.foodX = 0;
-//     foodPosition.foodY = 0;
-//     foodCounter += 1;
-//   } else {
-//     const repairAppleCoordinates = randomLocationForY * 15;
-//     const squaryApple = randomLocationForX + repairAppleCoordinates;
-//     const foodId = "div" + squaryApple.toString();
-//     const change = <HTMLDivElement>document.getElementById(foodId);
-//     change.classList.remove("food");
-//     foodPosition.foodX = 0;
-//     foodPosition.foodY = 0;
-//     foodCounter += 1;
-//   }
-// }
