@@ -2,19 +2,20 @@ import "./style.css";
 
 const playground = <HTMLDivElement>document.getElementById("playground");
 
-let liveSnakePosition = 113;
+let liveSnakeHeadPosition = 113;
 
 let foodPosition = foodGenerator();
+
+let points = 0;
+
+const snakeBody: number[] = [];
+let snakeBodyIndex = 0;
+snakeBody[snakeBodyIndex] = liveSnakeHeadPosition;
 
 function renderingPlayfield() {
   playground.innerHTML = "";
   for (let i = 1; i <= 225; i++) {
-    if (i === liveSnakePosition) {
-      const div = document.createElement("div");
-      div.id = `div${i.toString()}`;
-      div.className = "snake";
-      playground.appendChild(div);
-    } else if (i === foodPosition) {
+    if (i === foodPosition) {
       const div = document.createElement("div");
       div.id = `div${i.toString()}`;
       div.className = "food";
@@ -25,7 +26,22 @@ function renderingPlayfield() {
       div.className = "playfield";
       playground.appendChild(div);
     }
+    for (const snake of snakeBody) {
+      if (i === snake) {
+        const playfield = <HTMLDivElement | null>(
+          document.getElementById(`div${i.toString()}`)
+        );
+        if (playfield) {
+          playfield.remove();
+        }
+        const div = document.createElement("div");
+        div.id = `div${i.toString()}`;
+        div.className = "snake";
+        playground.appendChild(div);
+      }
+    }
   }
+  console.log(snakeBody);
 }
 
 window.addEventListener("keydown", (event) => {
@@ -36,20 +52,32 @@ renderingPlayfield();
 
 function move(input: string) {
   if (input === "ArrowUp") {
-    liveSnakePosition -= 15;
-    checkIfSnakeOnFood();
+    liveSnakeHeadPosition -= 15;
+    checkIfSnakeOnFood(input);
+    for (let i = 0; i < snakeBody.length; i++) {
+      snakeBody[i] -= 15;
+    }
     renderingPlayfield();
   } else if (input === "ArrowDown") {
-    liveSnakePosition += 15;
-    checkIfSnakeOnFood();
+    liveSnakeHeadPosition += 15;
+    checkIfSnakeOnFood(input);
+    for (let i = 0; i < snakeBody.length; i++) {
+      snakeBody[i] += 15;
+    }
     renderingPlayfield();
   } else if (input === "ArrowRight") {
-    liveSnakePosition += 1;
-    checkIfSnakeOnFood();
+    liveSnakeHeadPosition += 1;
+    checkIfSnakeOnFood(input);
+    for (let i = 0; i < snakeBody.length; i++) {
+      snakeBody[i] += 1;
+    }
     renderingPlayfield();
   } else if (input === "ArrowLeft") {
-    liveSnakePosition -= 1;
-    checkIfSnakeOnFood();
+    liveSnakeHeadPosition -= 1;
+    checkIfSnakeOnFood(input);
+    for (let i = 0; i < snakeBody.length; i++) {
+      snakeBody[i] -= 1;
+    }
     renderingPlayfield();
   }
 }
@@ -67,11 +95,32 @@ function foodGenerator() {
   }
 }
 
-function checkIfSnakeOnFood() {
-  if (liveSnakePosition === foodPosition) {
+function checkIfSnakeOnFood(dataOfMove: string) {
+  if (liveSnakeHeadPosition === foodPosition) {
     foodPosition = 0;
     const newPosition = foodGenerator();
     foodPosition = newPosition;
+    points++;
+    newSnakeBodypartGenerator(dataOfMove);
+  }
+}
+
+function newSnakeBodypartGenerator(movement: string) {
+  if (movement === "ArrowUp") {
+    snakeBodyIndex++;
+    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] + 15;
+  }
+  if (movement === "ArrowDown") {
+    snakeBodyIndex++;
+    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] - 15;
+  }
+  if (movement === "ArrowRight") {
+    snakeBodyIndex++;
+    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] - 1;
+  }
+  if (movement === "ArrowLeft") {
+    snakeBodyIndex++;
+    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] + 1;
   }
 }
 
