@@ -2,10 +2,17 @@ import "./style.css";
 
 const playground = <HTMLDivElement>document.getElementById("playground");
 
+const snakeBody: number[] = [];
 let foodPosition = foodGenerator();
 
-const snakeBody: number[] = [];
-snakeBody[0] = 113;
+let playerPosition = {
+  x: 8,
+  y: 8,
+};
+
+snakeBody[0] = playerPosition.y * 15 - playerPosition.x;
+
+let moveDirection = "";
 
 let points = 0;
 
@@ -20,6 +27,10 @@ const borderRight = [
   15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225,
 ];
 
+let interval = 0;
+
+const speed = 500;
+
 function renderingPlayfield() {
   playground.innerHTML = "";
   for (let i = 1; i <= 225; i++) {
@@ -27,11 +38,11 @@ function renderingPlayfield() {
       const div = document.createElement("div");
       div.id = `div${i.toString()}`;
       div.className = "food";
+      div.id = "food";
       playground.appendChild(div);
     } else {
       const div = document.createElement("div");
       div.id = `div${i.toString()}`;
-      div.className = "playfield";
       playground.appendChild(div);
     }
     for (const snake of snakeBody) {
@@ -52,41 +63,78 @@ function renderingPlayfield() {
 }
 
 window.addEventListener("keydown", (event) => {
-  move(event.key);
+  command(event.key);
 });
 
 renderingPlayfield();
+runtimeInterval();
 
-function move(input: string) {
-  if (input === "ArrowUp") {
-    checkIfBorderCrash(input);
+function command(eventInformation: string) {
+  if (eventInformation === "ArrowUp") {
+    directionChange("up");
+  } else if (eventInformation === "ArrowDown") {
+    directionChange("down");
+  } else if (eventInformation === "ArrowRight") {
+    directionChange("right");
+  } else if (eventInformation === "ArrowLeft") {
+    directionChange("left");
+  }
+}
+
+function directionChange(direction: string) {
+  if (direction === "up") {
+    moveDirection = "up";
+    intervalMovement();
+  } else if (direction === "down") {
+    moveDirection = "down";
+    intervalMovement();
+  } else if (direction === "left") {
+    moveDirection = "left";
+    intervalMovement();
+  } else if (direction === "right") {
+    moveDirection = "right";
+    intervalMovement();
+  }
+}
+
+function intervalMovement() {
+  if (moveDirection === "up") {
+    checkIfBorderCrash(moveDirection);
     snakeBody.unshift(snakeBody[0] - 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
-  } else if (input === "ArrowDown") {
-    checkIfBorderCrash(input);
+  } else if (moveDirection === "down") {
+    checkIfBorderCrash(moveDirection);
     snakeBody.unshift(snakeBody[0] + 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
-  } else if (input === "ArrowRight") {
-    checkIfBorderCrash(input);
+  } else if (moveDirection === "right") {
+    checkIfBorderCrash(moveDirection);
     snakeBody.unshift(snakeBody[0] + 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
-  } else if (input === "ArrowLeft") {
-    checkIfBorderCrash(input);
+  } else if (moveDirection === "left") {
+    checkIfBorderCrash(moveDirection);
     snakeBody.unshift(snakeBody[0] - 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
   }
-  console.log(snakeBody);
 }
 
 function foodGenerator() {
   const randomLocationForX = Math.round(Math.random() * (15 - 1) + 1);
   const randomLocationForY = Math.round(Math.random() * (15 - 1) + 1);
+
+  let foodPlacement = {
+    randomLocationForX,
+    randomLocationForY,
+  };
+
   if (randomLocationForY === 1) {
     const squaryApple = randomLocationForX;
+    if (snakeBody.find((snake) => snake === squaryApple)) {
+      foodGenerator();
+    }
     return squaryApple;
   } else {
     const repairAppleCoordinates = randomLocationForY * 15;
@@ -146,4 +194,8 @@ function checkIfBorderCrash(movement: string) {
       location.reload();
     }
   }
+}
+
+function runtimeInterval() {
+  setInterval(intervalMovement, speed);
 }
