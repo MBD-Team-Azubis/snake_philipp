@@ -6,11 +6,9 @@ let liveSnakeHeadPosition = 113;
 
 let foodPosition = foodGenerator();
 
-let points = 0;
-
 const snakeBody: number[] = [];
 let snakeBodyIndex = 0;
-snakeBody[snakeBodyIndex] = liveSnakeHeadPosition;
+snakeBody[0] = liveSnakeHeadPosition;
 
 function renderingPlayfield() {
   playground.innerHTML = "";
@@ -41,7 +39,7 @@ function renderingPlayfield() {
       }
     }
   }
-  console.log(snakeBody);
+  // console.log(snakeBody);
 }
 
 window.addEventListener("keydown", (event) => {
@@ -53,33 +51,26 @@ renderingPlayfield();
 function move(input: string) {
   if (input === "ArrowUp") {
     liveSnakeHeadPosition -= 15;
+    snakeBody[0] -= 15;
     checkIfSnakeOnFood(input);
-    for (let i = 0; i < snakeBody.length; i++) {
-      snakeBody[i] -= 15;
-    }
     renderingPlayfield();
   } else if (input === "ArrowDown") {
     liveSnakeHeadPosition += 15;
+    snakeBody[0] += 15;
     checkIfSnakeOnFood(input);
-    for (let i = 0; i < snakeBody.length; i++) {
-      snakeBody[i] += 15;
-    }
     renderingPlayfield();
   } else if (input === "ArrowRight") {
     liveSnakeHeadPosition += 1;
+    snakeBody[0] += 1;
     checkIfSnakeOnFood(input);
-    for (let i = 0; i < snakeBody.length; i++) {
-      snakeBody[i] += 1;
-    }
     renderingPlayfield();
   } else if (input === "ArrowLeft") {
     liveSnakeHeadPosition -= 1;
+    snakeBody[0] -= 1;
     checkIfSnakeOnFood(input);
-    for (let i = 0; i < snakeBody.length; i++) {
-      snakeBody[i] -= 1;
-    }
     renderingPlayfield();
   }
+  console.log(snakeBody);
 }
 
 function foodGenerator() {
@@ -100,37 +91,34 @@ function checkIfSnakeOnFood(dataOfMove: string) {
     foodPosition = 0;
     const newPosition = foodGenerator();
     foodPosition = newPosition;
-    points++;
-    newSnakeBodypartGenerator(dataOfMove);
+    snakeBodyIndex++;
+    if (dataOfMove === "ArrowUp") {
+      snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] + 15;
+      const newSnakePart = document.createElement("div");
+      newSnakePart.id = `div${snakeBody[snakeBodyIndex].toString()}`;
+      newSnakePart.className = "snake";
+      playground.appendChild(newSnakePart);
+    }
+    if (dataOfMove === "ArrowDown") {
+      snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] - 15;
+      const newSnakePart = document.createElement("div");
+      newSnakePart.id = `div${snakeBody[snakeBodyIndex].toString()}`;
+      newSnakePart.className = "snake";
+      playground.appendChild(newSnakePart);
+    }
+    if (dataOfMove === "ArrowRight") {
+      snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] - 1;
+      const newSnakePart = document.createElement("div");
+      newSnakePart.id = `div${snakeBody[snakeBodyIndex].toString()}`;
+      newSnakePart.className = "snake";
+      playground.appendChild(newSnakePart);
+    }
+    if (dataOfMove === "ArrowLeft") {
+      snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] + 1;
+      const newSnakePart = document.createElement("div");
+      newSnakePart.id = `div${snakeBody[snakeBodyIndex].toString()}`;
+      newSnakePart.className = "snake";
+      playground.appendChild(newSnakePart);
+    }
   }
 }
-
-function newSnakeBodypartGenerator(movement: string) {
-  if (movement === "ArrowUp") {
-    snakeBodyIndex++;
-    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] + 15;
-  }
-  if (movement === "ArrowDown") {
-    snakeBodyIndex++;
-    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] - 15;
-  }
-  if (movement === "ArrowRight") {
-    snakeBodyIndex++;
-    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] - 1;
-  }
-  if (movement === "ArrowLeft") {
-    snakeBodyIndex++;
-    snakeBody[snakeBodyIndex] = snakeBody[snakeBodyIndex - 1] + 1;
-  }
-}
-
-// function checkIfBorderCrash() {
-//   if (
-//     snakeTracker.x === 16 ||
-//     snakeTracker.x === 0 ||
-//     snakeTracker.y === 16 ||
-//     snakeTracker.y === 0
-//   ) {
-//     console.log("You loose");
-//   }
-// }
