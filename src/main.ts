@@ -37,7 +37,6 @@ function renderingPlayfield() {
       }
     }
   }
-  // console.log(snakeBody);
 }
 
 window.addEventListener("keydown", (event) => {
@@ -88,5 +87,16 @@ function checkIfSnakeOnFood() {
     snakeBodyIndex++;
   } else {
     snakeBody.pop();
+  }
+  crashCheck();
+}
+
+function crashCheck() {
+  if (snakeBody.length > 1) {
+    for (let x = 1; x <= snakeBody.length; x++) {
+      if (snakeBody[0] === snakeBody[x]) {
+        alert("GAME OVER!");
+      }
+    }
   }
 }
