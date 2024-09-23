@@ -2,7 +2,10 @@ body {
   background-color: #c7f9cc;
   justify-content: center;
   text-align: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Times New Roman", Times, serif;
+  color: black;
+  font-size: 3em;
+  font-weight: 500;
 }
 
 #playground {
