@@ -5,7 +5,6 @@ const playground = <HTMLDivElement>document.getElementById("playground");
 let foodPosition = foodGenerator();
 
 const snakeBody: number[] = [];
-let snakeBodyIndex = 0;
 snakeBody[0] = 113;
 
 let points = 0;
@@ -103,7 +102,6 @@ function checkIfSnakeOnFood() {
     foodPosition = 0;
     const newPosition = foodGenerator();
     foodPosition = newPosition;
-    snakeBodyIndex++;
     points++;
     pointVariable.innerHTML = "Your points: " + points.toString();
   } else {
