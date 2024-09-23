@@ -8,6 +8,17 @@ const snakeBody: number[] = [];
 let snakeBodyIndex = 0;
 snakeBody[0] = 113;
 
+const borderTop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const borderBottom = [
+  211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225,
+];
+const borderLeft = [
+  1, 16, 31, 46, 61, 76, 91, 106, 121, 136, 151, 166, 181, 196, 211,
+];
+const borderRight = [
+  15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225,
+];
+
 function renderingPlayfield() {
   playground.innerHTML = "";
   for (let i = 1; i <= 225; i++) {
@@ -47,18 +58,22 @@ renderingPlayfield();
 
 function move(input: string) {
   if (input === "ArrowUp") {
+    checkIfBorderCrash(input);
     snakeBody.unshift(snakeBody[0] - 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (input === "ArrowDown") {
+    checkIfBorderCrash(input);
     snakeBody.unshift(snakeBody[0] + 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (input === "ArrowRight") {
+    checkIfBorderCrash(input);
     snakeBody.unshift(snakeBody[0] + 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (input === "ArrowLeft") {
+    checkIfBorderCrash(input);
     snakeBody.unshift(snakeBody[0] - 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
@@ -96,7 +111,35 @@ function crashCheck() {
     for (let x = 1; x <= snakeBody.length; x++) {
       if (snakeBody[0] === snakeBody[x]) {
         alert("GAME OVER!");
+        location.reload();
       }
+    }
+  }
+}
+
+function checkIfBorderCrash(movement: string) {
+  for (let y = 0; y <= borderTop.length; y++) {
+    if (movement === "ArrowUp" && snakeBody[0] === borderTop[y]) {
+      alert("GAME OVER!");
+      location.reload();
+    }
+  }
+  for (let y = 0; y <= borderBottom.length; y++) {
+    if (movement === "ArrowDown" && snakeBody[0] === borderBottom[y]) {
+      alert("GAME OVER!");
+      location.reload();
+    }
+  }
+  for (let y = 0; y <= borderLeft.length; y++) {
+    if (movement === "ArrowLeft" && snakeBody[0] === borderLeft[y]) {
+      alert("GAME OVER!");
+      location.reload();
+    }
+  }
+  for (let y = 0; y <= borderRight.length; y++) {
+    if (movement === "ArrowRight" && snakeBody[0] === borderRight[y]) {
+      alert("GAME OVER!");
+      location.reload();
     }
   }
 }
