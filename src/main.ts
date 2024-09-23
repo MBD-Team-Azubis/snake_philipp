@@ -8,6 +8,8 @@ const snakeBody: number[] = [];
 let snakeBodyIndex = 0;
 snakeBody[0] = 113;
 
+let points = 0;
+
 const borderTop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const borderBottom = [
   211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225,
@@ -94,12 +96,16 @@ function foodGenerator() {
   }
 }
 
+const pointVariable = <HTMLDivElement>document.getElementById("points");
+
 function checkIfSnakeOnFood() {
   if (snakeBody[0] === foodPosition) {
     foodPosition = 0;
     const newPosition = foodGenerator();
     foodPosition = newPosition;
     snakeBodyIndex++;
+    points++;
+    pointVariable.innerHTML = "Your points: " + points.toString();
   } else {
     snakeBody.pop();
   }
