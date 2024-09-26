@@ -1,6 +1,7 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
+import { off } from "process";
 
 export default [
   { files: ["**/*.{js,mjs,cjs,ts}"] },
@@ -26,25 +27,32 @@ export default [
       "no-var": "error",
       "prefer-const": "warn",
 
-      '@typescript-eslint/class-literal-property-style': ['error', 'fields'],
-      '@typescript-eslint/no-invalid-void-type': 'error',
-      '@typescript-eslint/no-confusing-non-null-assertion': 'error',
-      '@typescript-eslint/prefer-optional-chain': 'error',
-      '@typescript-eslint/consistent-type-assertions': [
-        'error',
-        { assertionStyle: 'angle-bracket', objectLiteralTypeAssertions: 'never' },
+      "@typescript-eslint/class-literal-property-style": ["error", "fields"],
+      "@typescript-eslint/no-invalid-void-type": "error",
+      "@typescript-eslint/no-confusing-non-null-assertion": "error",
+      "@typescript-eslint/prefer-optional-chain": "error",
+      "@typescript-eslint/consistent-type-assertions": [
+        "error",
+        {
+          assertionStyle: "angle-bracket",
+          objectLiteralTypeAssertions: "never",
+        },
       ],
-      '@typescript-eslint/strict-boolean-expressions': ['warn'],
-      '@typescript-eslint/prefer-reduce-type-parameter': 'warn',
-      '@typescript-eslint/return-await': ['error', 'always'],
-      '@typescript-eslint/dot-notation': 'warn',
-      '@typescript-eslint/prefer-nullish-coalescing': 'error',
-      '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
-      '@typescript-eslint/prefer-for-of': 'off',
-      "@typescript-eslint/naming-convention": 'error',
-      '@typescript-eslint/no-unused-vars': 'off',
+      "@typescript-eslint/strict-boolean-expressions": ["warn"],
+      "@typescript-eslint/prefer-reduce-type-parameter": "warn",
+      "@typescript-eslint/return-await": ["error", "always"],
+      "@typescript-eslint/dot-notation": "warn",
+      "@typescript-eslint/prefer-nullish-coalescing": "error",
+      "@typescript-eslint/no-unnecessary-type-assertion": "warn",
+      "@typescript-eslint/prefer-for-of": "off",
+      "@typescript-eslint/naming-convention": "error",
+      "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-inferrable-types": "warn",
-      "id-length": ["error", { "min": 3, "exceptions": ["i", "j", "k", "n", "id", "x", "y", "z"] }],
+      "id-length": [
+        "error",
+        { min: 3, exceptions: ["i", "j", "k", "n", "id", "x", "y", "z"] },
+      ],
+      "@typescript-eslint/non-nullable-type-assertion-style": "off",
     },
     languageOptions: {
       parserOptions: {
