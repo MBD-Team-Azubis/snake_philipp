@@ -93,21 +93,33 @@ function intervalMovement() {
   checkIfBorderCrash();
   if (moveDirection === "up") {
     snakeHeadPosition.y -= 1;
+    if (checkIfBorderCrash() === true) {
+      process.exit;
+    }
     snakeBody.unshift(snakeBody[0] - 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (moveDirection === "down") {
     snakeHeadPosition.y += 1;
+    if (checkIfBorderCrash() === true) {
+      process.exit;
+    }
     snakeBody.unshift(snakeBody[0] + 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (moveDirection === "right") {
     snakeHeadPosition.x += 1;
+    if (checkIfBorderCrash() === true) {
+      process.exit;
+    }
     snakeBody.unshift(snakeBody[0] + 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (moveDirection === "left") {
     snakeHeadPosition.x -= 1;
+    if (checkIfBorderCrash() === true) {
+      process.exit;
+    }
     snakeBody.unshift(snakeBody[0] - 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
@@ -135,6 +147,7 @@ function foodGenerator() {
 const pointVariable = <HTMLDivElement>document.getElementById("points");
 
 function checkIfSnakeOnFood() {
+  checkIfHeadCrash();
   if (snakeBody[0] === foodPosition) {
     foodPosition = 0;
     const newPosition = foodGenerator();
@@ -146,26 +159,31 @@ function checkIfSnakeOnFood() {
   }
 }
 
-function checkIfBorderCrash() {
+function checkIfHeadCrash() {
   if (snakeBody.length > 1) {
     for (let x = 1; x <= snakeBody.length; x++) {
       if (
         snakeBody[0] === snakeBody[x] ||
-        snakeHeadPosition.y <= 1 ||
-        snakeHeadPosition.y >= 15 ||
-        snakeHeadPosition.x <= 1 ||
-        snakeHeadPosition.x >= 15
+        snakeHeadPosition.y < 1 ||
+        snakeHeadPosition.y > 15 ||
+        snakeHeadPosition.x < 1 ||
+        snakeHeadPosition.x > 15
       ) {
         gameOver();
       }
     }
-  } else if (
-    snakeHeadPosition.y <= 1 ||
-    snakeHeadPosition.y >= 15 ||
-    snakeHeadPosition.x <= 1 ||
-    snakeHeadPosition.x >= 15
+  }
+}
+
+function checkIfBorderCrash() {
+  if (
+    snakeHeadPosition.y < 1 ||
+    snakeHeadPosition.y > 15 ||
+    snakeHeadPosition.x < 1 ||
+    snakeHeadPosition.x > 15
   ) {
     gameOver();
+    return true;
   }
 }
 
