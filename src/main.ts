@@ -19,7 +19,7 @@ let moveDirection = "";
 
 let points = 0;
 
-let speed = 600;
+let speed = 300;
 
 let intervalId: NodeJS.Timeout;
 
@@ -90,37 +90,35 @@ function directionChange(direction: string) {
 }
 
 function intervalMovement() {
-  checkIfBorderCrash();
+  if (checkIfHeadCrash() != true) {
+    checkIfBorderCrash();
+  }
   if (moveDirection === "up") {
     snakeHeadPosition.y -= 1;
-    if (checkIfBorderCrash() === true) {
-      process.exit;
+    if (checkIfBorderCrash() != true) {
+      snakeBody.unshift(snakeBody[0] - 15);
     }
-    snakeBody.unshift(snakeBody[0] - 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (moveDirection === "down") {
     snakeHeadPosition.y += 1;
-    if (checkIfBorderCrash() === true) {
-      process.exit;
+    if (checkIfBorderCrash() != true) {
+      snakeBody.unshift(snakeBody[0] + 15);
     }
-    snakeBody.unshift(snakeBody[0] + 15);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (moveDirection === "right") {
     snakeHeadPosition.x += 1;
-    if (checkIfBorderCrash() === true) {
-      process.exit;
+    if (checkIfBorderCrash() != true) {
+      snakeBody.unshift(snakeBody[0] + 1);
     }
-    snakeBody.unshift(snakeBody[0] + 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
   } else if (moveDirection === "left") {
     snakeHeadPosition.x -= 1;
-    if (checkIfBorderCrash() === true) {
-      process.exit;
+    if (checkIfBorderCrash() != true) {
+      snakeBody.unshift(snakeBody[0] - 1);
     }
-    snakeBody.unshift(snakeBody[0] - 1);
     checkIfSnakeOnFood();
     renderingPlayfield();
   }
@@ -147,9 +145,11 @@ function foodGenerator() {
 const pointVariable = <HTMLDivElement>document.getElementById("points");
 
 function checkIfSnakeOnFood() {
-  checkIfHeadCrash();
   if (snakeBody[0] === foodPosition) {
     foodPosition = 0;
+    speed -= 25;
+    runtimeInterval();
+    console.log(speed);
     const newPosition = foodGenerator();
     foodPosition = newPosition;
     points++;
@@ -170,6 +170,7 @@ function checkIfHeadCrash() {
         snakeHeadPosition.x > 15
       ) {
         gameOver();
+        return true;
       }
     }
   }
@@ -188,6 +189,7 @@ function checkIfBorderCrash() {
 }
 
 function runtimeInterval() {
+  clearInterval(intervalId);
   intervalId = setInterval(intervalMovement, speed);
 }
 
